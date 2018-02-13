@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Add Responden</title>
+</head>
+<body>
+	<form action="#" th:action="@{/responden/add}" th:object="${responden}" method="post">
+		<div>
+			<label th:for="${responden.nores}">Nomor Responden</label>
+			<input type="text" th:field="*{nores}" th:errorclass="fieldError" />
+			<p th:if="${#fields.hasErrors('nores')}" th:errors="*{nores}">Nomor Responden</p>
+		</div>
+		<div>
+			<label th:for="${responden.umur}">Umur</label>
+			<input type="text" th:field="*{umur}" th:errorclass="fieldError" />
+			<p th:if="${#fields.hasErrors('umur')}" th:errors="*{umur}">Umur</p>
+		</div>
+		<div>
+			<label th:for="${responden.jk}">Jenis Kelamin</label>
+			<input type="text" th:field="*{jk}" th:errorclass="fieldError" />
+			<p th:if="${#fields.hasErrors('jk')}" th:errors="*{jk}">Jenis Kelamin</p>
+		</div>
+		<div>
+			<label th:for="${responden.pendidikan}">Pendidikan</label>
+			<input type="text" th:field="*{pendidikan}" th:errorclass="fieldError" />
+			<p th:if="${#fields.hasErrors('pendidikan')}" th:errors="*{pendidikan}">Pendidikan</p>
+		</div>
+		<div>
+			<label th:for="${responden.pekerjaan}">Pekerjaan</label>
+			<input type="text" th:field="*{pekerjaan}" th:errorclass="fieldError" />
+			<p th:if="${#fields.hasErrors('pekerjaan')}" th:errors="*{pekerjaan}">Pekerjaan</p>
+		</div>
+		<div>
+			<label th:for="${responden.periode}">Periode</label>
+			<input type="text" th:field="*{periode}" th:errorclass="fieldError" />
+			<p th:if="${#fields.hasErrors('periode')}" th:errors="*{periode}">Periode</p>
+		</div>
+		<div>
+			<!--  <input type="hidden" th:field="*{tanggal}" th:value="${#dates.createNow()}"/> -->
+		</div>
+		<div>
+			<input type="submit" value="SIMPAN" />
+		</div>
+	</form>
+</body>
+</html>

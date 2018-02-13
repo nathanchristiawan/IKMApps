@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -46,6 +47,23 @@ public class RespondenController {
 				System.out.println(er.getDefaultMessage());
 			}
 			return "responden/add";
+		}
+	}
+	
+	@GetMapping("/edit/{nores}")
+	public String editForm(Model model, @PathVariable("nores") short Id) {
+		
+		model.addAttribute("responden", respondenDAO.getResponden(Id));
+		return "responden/edit";
+	}
+	
+	@PostMapping("/edit")
+	public String editResponden(@Valid Responden responden, BindingResult result) {
+		
+		if(!result.hasErrors() && respondenDAO.editResponden(responden)) {
+			return "redirect:/responden/index";
+		} else {
+			return "responden/edit/";
 		}
 	}
 }

@@ -1,5 +1,6 @@
 package id.co.ikm.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -44,11 +45,36 @@ public class RespondenDAO {
 		try {
 			transaksi = em.getTransaction();
 			transaksi.begin();
+			responden.setTanggal(new Date());
 			em.persist(responden);
 			transaksi.commit();
 		} catch (Exception ex) {
 			transaksi.rollback();
 			isSuccess = false;
+		}
+		return isSuccess;
+	}
+	
+	
+	public boolean editResponden(Responden updateResponden) {
+		EntityManager em = factory.createEntityManager();
+		EntityTransaction transaksi = null;
+		boolean isSuccess = true;
+		try {
+			transaksi = em.getTransaction();
+			transaksi.begin();
+			Responden existingResponden = (Responden) em.find(Responden.class, updateResponden.getNores());
+			existingResponden.setTanggal(new Date());
+			existingResponden.setUmur(updateResponden.getUmur());
+			existingResponden.setJk(updateResponden.getJk());
+			existingResponden.setPendidikan(updateResponden.getPendidikan());
+			existingResponden.setPekerjaan(updateResponden.getPekerjaan());
+			existingResponden.setPeriode(updateResponden.getPeriode());
+			transaksi.commit();
+		} catch (Exception ex) {
+			transaksi.rollback();
+			isSuccess = false;
+			System.out.println(ex.getMessage());
 		}
 		return isSuccess;
 	}

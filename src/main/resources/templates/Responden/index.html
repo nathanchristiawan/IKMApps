@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1"/>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" ></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("table").dataTable();
+	});
+	</script>
+<title>Index Responden</title>
+</head>
+<body>
+<p th:text="${tanggal}"> </p>
+	
+	<table class="table table-hover">
+		<thead class="thead-dark">
+			<tr>
+				<th>Umur</th>
+				<th>Jenis Kelamin</th>
+				<th>Pendidikan</th>
+				<th>Pekerjaan</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="x : ${semuaResponden}">
+				<td th:text="${x.umur}"> </td>
+				<td th:text="${x.jk}"> </td>
+				<td th:text="${x.pendidikan}"> </td>
+				<td th:text="${x.pekerjaan}"> </td>
+			</tr>
+		</tbody>	
+	</table>
+</body>
+</html>

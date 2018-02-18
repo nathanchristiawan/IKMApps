@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Tambah Daftar Pertanyaan</title>
+</head>
+<body bgcolor="#1f365b">
+	<form action="#" th:action="@{/qloket/addqloket}" th:object="${qloket}" method="post">
+		<div>
+			<label th:for="${qloket.idQloket}">ID Loket</label>
+			<input type="text" th:field="*{idQloket}" th:errorclass="fieldError" />
+			<p th:if="${#fields.hasErrors('idQloket')}" th:errors="*{idQloket}">ID Loket</p>
+		</div>
+		<div>
+			<label th:for="${qloket.questionLoket}">Questions</label>
+			<input type="text" th:field="*{questionLoket}" th:errorclass="fieldError" />
+			<p th:if="${#fields.hasErrors('questionLoket')}" th:errors="*{questionLoket}">Questions</p>
+		</div>
+		<div>
+			<input type="submit" value="SIMPAN" />
+		</div>
+	</form>
+</body>
+</html>

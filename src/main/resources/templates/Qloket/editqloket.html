@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Edit Pertanyaan</title>
+</head>
+<body>
+	<form action="#" th:action="@{/qloket/editqloket}" th:object="${qloket}" method="post">
+		<div>
+			<label th:for="${qloket.questionLoket}">Questions</label>
+			<input type="text" th:field="*{questionLoket}" th:errorclass="fieldError" />
+			<p th:if="${#fields.hasErrors('questionLoket')}" th:errors="*{questionLoket}">Questions</p>
+		</div>
+		<div>
+			<input type="submit" value="UBAH" />
+			<input type="hidden" th:field="*{idQloket}" th:value="*{idQloket}" />
+		</div>
+	</form>
+</body>
+</html>

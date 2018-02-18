@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Ubah Pertanyaan</title>
+</head>
+<body>
+	<form action="#" th:action="@{/qall/edit}" th:object="${qall}" method="post">
+		<div>
+			<label th:for="${qall.question}">Questions</label>
+			<input type="text" th:field="*{question}" th:errorclass="fieldError" />
+			<p th:if="${#fields.hasErrors('question')}" th:errors="*{question}">Questions</p>
+		</div>
+		<div>
+			<input type="submit" value="UBAH" />
+			<input type="hidden" th:field="*{idQall}" th:value="*{idQall}" />
+		</div>
+	</form>
+</body>
+</html>

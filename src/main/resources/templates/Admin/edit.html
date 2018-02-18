@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Ubah Data Admin</title>
+</head>
+<body>
+	<form action="#" th:action="@{/admin/edit}" th:object="${admin}" method="post">
+		<div>
+			<label th:for="${admin.pw}">Password</label>
+			<input type="text" th:field="*{pw}" th:errorclass="fieldError" />
+			<p th:if="${#fields.hasErrors('pw')}" th:errors="*{pw}">Password</p>
+		</div>
+		<div>
+			<input type="submit" value="UBAH" />
+			<input type="hidden" th:field="*{useradmin}" th:value="*{useradmin}" />
+		</div>
+	</form>
+</body>
+</html>

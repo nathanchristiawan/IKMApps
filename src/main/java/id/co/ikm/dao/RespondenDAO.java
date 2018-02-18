@@ -78,5 +78,16 @@ public class RespondenDAO {
 		}
 		return isSuccess;
 	}
+	
+//	public boolean hapusResponden(Responden deleteResponden) {
+//		EntityManager em = factory.createEntityManager();
+//		EntityTransaction transaksi = null;
+//		boolean isSuccess = true;
+//		try {
+//			transaksi = em.getTransaction();
+//			transaksi.begin();
+//			
+//		}
+//	}
 
 }

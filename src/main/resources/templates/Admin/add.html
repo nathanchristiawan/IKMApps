@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Tambah Admin</title>
+</head>
+<body>
+	<form action="#" th:action="@{/admin/add}" th:object="${admin}" method="post">
+		<div>
+			<label th:for="${admin.useradmin}">Username</label>
+			<input type="text" th:field="*{useradmin}" th:errorclass="fieldError" />
+			<p th:if="${#fields.hasErrors('useradmin')}" th:errors="*{useradmin}">Username</p>
+		</div>
+		<div>
+			<label th:for="${admin.pw}">Password</label>
+			<input type="text" th:field="*{pw}" th:errorclass="fieldError" />
+			<p th:if="${#fields.hasErrors('pw')}" th:errors="*{pw}">Password</p>
+		</div>
+		<div>
+			<input type="submit" value="SIMPAN" />
+		</div>
+	</form>
+</body>
+</html>

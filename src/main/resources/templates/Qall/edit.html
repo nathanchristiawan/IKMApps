@@ -2,19 +2,51 @@
 <html>
 <head>
 <meta charset="ISO-8859-1"/>
-<title>Ubah Pertanyaan</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+<link rel="stylesheet" 
+ 	href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.bootstrap4.min.css" />
+ 	
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="../webjars/datatables/js/jquery.dataTables.min.js"> </script>
+<script type="text/javascript" src="../webjars/datatables/js/jquery.dataTables.bootstrap4.min.js"> </script>
+
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$("table").dataTable();
+	});
+	</script>
+<title>Ubah Data Survey Umum</title>
 </head>
 <body>
+<table class="table table-striped table-bordered table-hover" id="dataTables-example">
 	<form action="#" th:action="@{/qall/edit}" th:object="${qall}" method="post">
-		<div>
-			<label th:for="${qall.question}">Questions</label>
-			<input type="text" th:field="*{question}" th:errorclass="fieldError" />
-			<p th:if="${#fields.hasErrors('question')}" th:errors="*{question}">Questions</p>
-		</div>
+	<thead class="thead-dark">
+		<tr>
+			<th>Questions</th>
+		</tr>
+	</thead>
+		<tbody>
+		<tr>
+			<td>
+				<div>
+					<input type="text" th:field="*{question}" th:errorclass="fieldError" />
+					<p th:if="${#fields.hasErrors('question')}" th:errors="*{question}">Question</p>
+				</div>
+			</td>
+		</tr>
+	</tbody>
 		<div>
 			<input type="submit" value="UBAH" />
 			<input type="hidden" th:field="*{idQall}" th:value="*{idQall}" />
 		</div>
 	</form>
-</body>
+
+</table>
+
+		</body>
 </html>

@@ -9,52 +9,52 @@ import javax.persistence.EntityTransaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import id.co.ikm.model.Qloket;
-
+import id.co.ikm.model.AnswerAll;
 
 @Service
-public class QloketDAO {
+public class AnswerAllDAO {
 
 	@Autowired
 	private EntityManagerFactory factory;
 	
 	@SuppressWarnings("unchecked")
-	public List<Qloket> getAllQloket(){
-		return (List<Qloket>) factory.createEntityManager().createQuery("from Qloket").getResultList();
+	public List<AnswerAll> getAllAnswerAll(){
+		return (List<AnswerAll>) factory.createEntityManager().createQuery("from AnswerAll").getResultList();
 	}
 	
-	public Qloket getQloket(String id) {
-		return (Qloket) factory.createEntityManager().createQuery("from Qloket where idQloket = '"+id+"'").getSingleResult();
+	public AnswerAll getAnswerAll(Integer id) {
+		return (AnswerAll) factory.createEntityManager().createQuery("from AnswerAll where idAnswAll = '"+id+"'").getSingleResult();
 	}
 	
-	public boolean addQloket(Qloket qloket) {
+	public boolean addAnswerAll(AnswerAll answerall) {
 		EntityManager em = factory.createEntityManager();
 		EntityTransaction transaksi = null;
 		boolean isSuccess = true;
 		try {
 			transaksi = em.getTransaction();
 			transaksi.begin();
-			em.persist(qloket);
+			em.persist(answerall);
 			transaksi.commit();
-		}catch (Exception ex) {
+		} catch (Exception ex) {
 			transaksi.rollback();
 			isSuccess = false;
 		}
 		return isSuccess;
 	}
 	
-	
-	public boolean editQloket(Qloket updateQloket) {
+	public boolean editAnswerAll(AnswerAll updateAnswerAll) {
 		EntityManager em = factory.createEntityManager();
 		EntityTransaction transaksi = null;
 		boolean isSuccess = true;
 		try {
 			transaksi = em.getTransaction();
 			transaksi.begin();
-			Qloket existingQloket = (Qloket) em.find(Qloket.class, updateQloket.getIdQloket());
-			existingQloket.setQuestionLoket(updateQloket.getQuestionLoket());
+			AnswerAll existingAnswerAll = (AnswerAll) em.find(AnswerAll.class, updateAnswerAll.getIdAnswAll());
+			existingAnswerAll.setNores(updateAnswerAll.getNores());
+			existingAnswerAll.setIdQall(updateAnswerAll.getIdQall());
+			existingAnswerAll.setAnswerAll(updateAnswerAll.getAnswerAll());
 			transaksi.commit();
-		}catch (Exception ex) {
+		} catch (Exception ex) {
 			transaksi.rollback();
 			isSuccess = false;
 			System.out.println(ex.getMessage());

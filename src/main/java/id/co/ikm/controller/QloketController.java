@@ -48,14 +48,14 @@ public class QloketController {
 	}
 	
 	
-	@GetMapping("/editqloket/{idqloket}")
-	public String editForm(Model model, @PathVariable("idqloket") String Id) {
+	@GetMapping("/editqloket/{idQloket}")
+	public String editForm(Model model, @PathVariable("idQloket") String Id) {
 		
 		model.addAttribute("qloket", qloketDAO.getQloket(Id));
 		return "qloket/editqloket";
 	}
 	
-	@PostMapping("/editqloket")
+	@PostMapping("/editQloket")
 	public String editQloket(@Valid Qloket qloket, BindingResult result) {
 		
 		if(!result.hasErrors() && qloketDAO.editQloket(qloket)) {

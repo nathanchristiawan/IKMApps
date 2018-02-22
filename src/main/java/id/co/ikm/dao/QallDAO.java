@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
+import org.aspectj.weaver.patterns.TypePatternQuestions.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,14 @@ public class QallDAO implements QallService{
 		return (Qall) factory.createEntityManager().createQuery("from Qall where idQall = '"+id+"'").getSingleResult();
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Question> getAllQuestion(){
+		return (List<Question>) factory.createEntityManager().createQuery("from Qall").getResultList();
+	}
+	
+	public Question getQuestion(String id) {
+		return (Question) factory.createEntityManager().createQuery("from Qall where idQall = '"+id+"'").getSingleResult();
+	}
 	
 	public boolean addQall(Qall qall) {
 		EntityManager em = factory.createEntityManager();

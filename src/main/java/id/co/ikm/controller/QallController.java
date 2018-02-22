@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import id.co.ikm.dao.AnswerAllDAO;
 import id.co.ikm.dao.QallDAO;
+import id.co.ikm.model.AnswerAll;
 import id.co.ikm.model.Qall;
 import id.co.ikm.service.QallService;
 
@@ -28,12 +30,53 @@ public class QallController {
 	}
 	
 	@Autowired
+	private AnswerAllDAO answerallDAO;
+	
+	@Autowired
 	private QallDAO qallDAO;
 	
-	@GetMapping("/index")
+	@GetMapping("/indexanswer")
 	public String index(Model model) {
 		model.addAttribute("semuaQall", qallDAO.getAllQall());
-		return "qall/index";
+		AnswerAll answerall = new AnswerAll();
+		model.addAttribute("objekAnswer", answerall);
+		return "qall/indexanswer";
+	}
+	
+	@PostMapping("/indexanswer")
+	public String saveAnswer(@Valid AnswerAll answerall, BindingResult result) {
+		//System.out.println("test "+!result.hasErrors()+" "+answerallDAO.addAnswerAll(answerall));
+		
+		if(!result.hasErrors() && answerallDAO.addAnswerAll(answerall)) {
+			return "redirect:/qall/indexanswer";
+		} else {
+			for (ObjectError er:result.getAllErrors()) {
+				System.out.println(er.getDefaultMessage());
+			}
+			return "qall/indexanswer";
+		}
+	}
+	
+	@GetMapping("/detail/{idQall}")
+	public String detail(Model model, @PathVariable("idQall") String id) {
+		model.addAttribute("objekQuestion", qallDAO.getQuestion(id));
+		AnswerAll answerall = new AnswerAll();
+		model.addAttribute("getAnswerall", answerall);
+		return "qall/detail";
+	}
+	
+	@PostMapping("/detail")
+	public String addAnswer(@Valid AnswerAll answerall, BindingResult result) {
+		System.out.println("test "+result.hasErrors()+" "+answerallDAO.addAnswerAll(answerall));
+		
+		if(!result.hasErrors() && answerallDAO.addAnswerAll(answerall)) {
+			return "redirect:/qall/indexanswer";
+		} else {
+			for (ObjectError er:result.getAllErrors()) {
+				System.out.println(er.getDefaultMessage());
+			}
+			return "/qall/indexanswer";
+		}
 	}
 	
 	@GetMapping("/add")
@@ -46,7 +89,7 @@ public class QallController {
 	@PostMapping("/add")
 	public String addQall(@Valid Qall qall, BindingResult result) {
 		if(!result.hasErrors() && qallDAO.addQall(qall)) {
-			return "redirect:/qall/index";
+			return "redirect:/qall/indexanswer";
 		} else {
 			for (ObjectError er : result.getAllErrors()) {
 				System.out.println(er.getDefaultMessage());
@@ -65,7 +108,7 @@ public class QallController {
 	@PostMapping("/edit")
 	public String editQall(@Valid Qall qall, BindingResult result) {
 		if(!result.hasErrors() && qallDAO.editQall(qall)) {
-			return "redirect:/qall/index";
+			return "redirect:/qall/indexanswer";
 		} else {
 			return "qall/edit/";
 		}
@@ -95,7 +138,7 @@ public class QallController {
 	@RequestMapping(value="/index/{idQall}")
 	public String deleteQall(@PathVariable String idQall) {
 		qallService.deleteQall(idQall);
-		return "redirect:/qall/index";
+		return "redirect:/qall/indexanswer";
 	}
 	
 }

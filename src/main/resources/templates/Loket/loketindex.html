@@ -21,6 +21,10 @@
 	$(document).ready(function(){
 		$("table").dataTable();
 	});
+	
+	function getID(a){
+		alert(a);
+	}
 	</script>
 	
 <title>Daftar Loket</title>
@@ -29,12 +33,20 @@
 	<table class="table table-hover">
 		<thead class="thead-dark">
 			<tr>
-				<th>Nama Loket</th>
+				<th width="100px">ID Loket</th>
+				<th width="600px">Nama Loket</th>
+				<th>Kuisioner</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="x : ${semuaLoket}">
-				<td th:text="${x.nama}"> </td>
+				<td th:text="${x.idloket}"></td>
+				<td th:text="${x.nama}"></td>
+				<td>
+					<div class="form-group">
+					<a class="btn btn-success" th:value="${x.idloket}" th:href="@{'/qloket/qloketindex/'+${x.idloket}}"> Beri Nilai </a>
+					</div>
+				</td>
 			</tr>
 		</tbody>	
 	</table>

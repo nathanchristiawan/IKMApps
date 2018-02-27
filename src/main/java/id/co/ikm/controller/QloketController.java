@@ -12,20 +12,48 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import id.co.ikm.dao.AnswerLoketDAO;
+import id.co.ikm.dao.LoketDAO;
 import id.co.ikm.dao.QloketDAO;
+import id.co.ikm.dao.RespondenDAO;
+import id.co.ikm.model.AnswerLoket;
 import id.co.ikm.model.Qloket;
 
 @Controller
 @RequestMapping("qloket")
 public class QloketController {
+	
+	@Autowired
+	private RespondenDAO respondenDAO;
+	
+	@Autowired
+	private AnswerLoketDAO answerloketDAO;
+	
+	@Autowired
+	private LoketDAO loketDAO;
 
 	@Autowired
 	private QloketDAO qloketDAO;
 	
-	@GetMapping("/qloketindex")
-	public String qloketindex(Model model) {
+	@GetMapping("/qloketindex/{id}")
+	public String qloketindex(Model model, @PathVariable("id") String id) {
 		model.addAttribute("semuaQloket", qloketDAO.getAllQloket());
+		AnswerLoket answerloket = new AnswerLoket();
+		model.addAttribute("objekAnswerLoket", answerloket);
+		model.addAttribute("objekLoket", loketDAO.getLoket(id));
 		return "qloket/qloketindex";
+	}
+	
+	@PostMapping("/qloketindex")
+	public String saveAnswer(@Valid AnswerLoket answerloket, BindingResult result) {
+		if(!result.hasErrors() && answerloketDAO.addAnswerLoket(answerloket)) {
+			return "redirect:/qloket/qloketindex";
+		} else {
+			for (ObjectError er:result.getAllErrors()) {
+				System.out.println(er.getDefaultMessage());
+			}
+			return "qloket/qloketindex";
+		}
 	}
 	
 	@GetMapping("/addqloket")

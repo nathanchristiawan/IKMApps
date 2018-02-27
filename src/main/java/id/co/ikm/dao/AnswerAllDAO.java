@@ -36,6 +36,7 @@ public class AnswerAllDAO {
 			em.persist(answerall);
 			transaksi.commit();
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			transaksi.rollback();
 			isSuccess = false;
 		}

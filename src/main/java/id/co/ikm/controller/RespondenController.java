@@ -39,9 +39,13 @@ public class RespondenController {
 	}
 	
 	@PostMapping("/add")
-	public String addResponden(@Valid Responden responden, BindingResult result) {
-		if(!result.hasErrors() && respondenDAO.addResponden(responden)) {
-			return "redirect:/responden/index";
+	public String addResponden(@Valid Responden responden,  BindingResult result) {
+		System.out.println("cek 1");
+		if(!result.hasErrors() && respondenDAO.addResponden(responden)) {			
+			System.out.println("lolos 1");
+			int id = responden.getNores();
+			System.out.println("lolos"+id);
+			return "redirect:/qall/indexanswer/"+id;
 		} else {
 			for (ObjectError er : result.getAllErrors()) {
 				System.out.println(er.getDefaultMessage());

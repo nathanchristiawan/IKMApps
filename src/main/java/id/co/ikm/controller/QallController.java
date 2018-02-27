@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import id.co.ikm.dao.AnswerAllDAO;
 import id.co.ikm.dao.QallDAO;
+import id.co.ikm.dao.RespondenDAO;
 import id.co.ikm.model.AnswerAll;
 import id.co.ikm.model.Qall;
+import id.co.ikm.model.Responden;
 import id.co.ikm.service.QallService;
 
 @Controller
@@ -33,13 +35,17 @@ public class QallController {
 	private AnswerAllDAO answerallDAO;
 	
 	@Autowired
+	private RespondenDAO respondenDAO;
+	
+	@Autowired
 	private QallDAO qallDAO;
 	
-	@GetMapping("/indexanswer")
-	public String index(Model model) {
+	@GetMapping("/indexanswer/{id}")
+	public String index(Model model, @PathVariable("id") short id) {
 		model.addAttribute("semuaQall", qallDAO.getAllQall());
 		AnswerAll answerall = new AnswerAll();
 		model.addAttribute("objekAnswer", answerall);
+		model.addAttribute("objekResponden", respondenDAO.getResponden(id));
 		return "qall/indexanswer";
 	}
 	
@@ -48,7 +54,9 @@ public class QallController {
 		//System.out.println("test "+!result.hasErrors()+" "+answerallDAO.addAnswerAll(answerall));
 		
 		if(!result.hasErrors() && answerallDAO.addAnswerAll(answerall)) {
-			return "redirect:/qall/indexanswer";
+			Responden id = answerall.getNores();
+			int a = id.getNores();
+			return "redirect:/qall/indexanswer/"+a;
 		} else {
 			for (ObjectError er:result.getAllErrors()) {
 				System.out.println(er.getDefaultMessage());
